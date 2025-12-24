@@ -8,6 +8,9 @@ const PORT=process.env.PORT || 5000;
 app.get('/',(req,res)=>{
     res.send("hi your server is working")
 })
+app.get('/test',(req,res)=>{
+    res.send("this is testing route");
+})
 
 app
 
