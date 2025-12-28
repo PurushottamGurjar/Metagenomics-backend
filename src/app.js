@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 
-app.get('/test', (req, res) => {
+app.get('/', (req, res) => {
   res.send(`
     <h2 style="
       color: red;
@@ -29,7 +29,7 @@ app.get('/test', (req, res) => {
       border: 2px solid red;
       border-radius: 8px;
     ">
-      Styled Red Heading
+      Testing On ..... Keeping your server live....
     </h2>
   `);
 });
