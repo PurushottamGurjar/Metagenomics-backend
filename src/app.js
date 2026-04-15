@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 
 import authRoutes from "./routes/auth.routes.js";
+import projectRoutes from "./routes/project.routes.js";
+
 
 const app = express();
 
@@ -9,13 +11,16 @@ app.use(cors({
  origin: [
     "https://meta-genomics.vercel.app",
     "https://localhost:5173",
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://metagenomics.purushottam.online"
   ],
   credentials: true
 }));
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectRoutes);
 
 app.get('/', (req, res) => {
   res.send(`

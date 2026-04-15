@@ -11,6 +11,7 @@
   "author": "Purushottam Gurjar",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.103.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -18,6 +19,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.0.0",
     "mongoose": "^9.0.2",
+    "multer": "^2.1.1",
     "nodmeon": "^0.0.1-security"
   }
 }
