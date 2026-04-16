@@ -170,3 +170,37 @@ export const runVolcano = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const runClustering = async (req, res) => {
+  try {
+    const { projectId } = req.body;
+
+    const project = await Project.findById(projectId);
+
+    if (!project || !project.fileUrl) {
+      return res.status(400).json({ message: "File not found" });
+    }
+
+    const response = await fetch(
+      "https://ml-services-genomics.onrender.com/analyze/clustering",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          file_url: project.fileUrl,
+          n_clusters: 3
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    res.json(data);
+
+  } catch (error) {
+    console.error("Clustering error:", error);
+    res.status(500).json({ error: error.message });
+  }
+};

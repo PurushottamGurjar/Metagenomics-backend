@@ -22,6 +22,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 
+
 app.get('/', (req, res) => {
   res.send(`
     <h2 style="
