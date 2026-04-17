@@ -1,5 +1,5 @@
 import express from "express";
-import { upload, uploadFile ,runPCA,runHeatmap,runVolcano,runClustering} from "../controllers/project.controller.js";
+import { upload, uploadFile ,runPCA,runHeatmap,runVolcano,runClustering,runConfusion } from "../controllers/project.controller.js";
 import {
   createProject,
   getProjects,
@@ -17,5 +17,6 @@ router.post("/pca", protect, runPCA);
 router.post("/heatmap", protect, runHeatmap);
 router.post("/volcano", protect, runVolcano);
 router.post("/clustering", protect, runClustering);
+router.post("/confusion",protect, runConfusion);
 
 export default router;

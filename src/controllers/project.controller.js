@@ -102,6 +102,7 @@ export const runPCA = async (req, res) => {
       return res.status(400).json({ message: "File not found" });
     }
 
+    // const response = await fetch("http://127.0.0.1:8000/analyze/pca", {
     const response = await fetch("https://ml-services-genomics.onrender.com/analyze/pca", {
       method: "POST",
       headers: {
@@ -111,6 +112,8 @@ export const runPCA = async (req, res) => {
         file_url: project.fileUrl
       })
     });
+
+    console.log("printing the file name for Pca : ",project.fileUrl);
 
     const data = await response.json();
 
@@ -127,6 +130,7 @@ export const runHeatmap = async (req, res) => {
 
     const project = await Project.findById(projectId);
 
+    // const response = await fetch("http://127.0.0.1:8000/analyze/heatmap", {
     const response = await fetch("https://ml-services-genomics.onrender.com/analyze/heatmap", {
       method: "POST",
       headers: {
@@ -136,7 +140,7 @@ export const runHeatmap = async (req, res) => {
         file_url: project.fileUrl
       })
     });
-
+    console.log("printing the file name Heatmaps : ",project.fileUrl);
     const data = await response.json();
 
     res.json(data);
@@ -152,6 +156,7 @@ export const runVolcano = async (req, res) => {
 
     const project = await Project.findById(projectId);
 
+    // const response = await fetch("http://127.0.0.1:8000/analyze/volcano", {
     const response = await fetch("https://ml-services-genomics.onrender.com/analyze/volcano", {
       method: "POST",
       headers: {
@@ -161,7 +166,7 @@ export const runVolcano = async (req, res) => {
         file_url: project.fileUrl
       })
     });
-
+    console.log("printing the file name for volcano: ",project.fileUrl);
     const data = await response.json();
 
     res.json(data);
@@ -182,7 +187,8 @@ export const runClustering = async (req, res) => {
     }
 
     const response = await fetch(
-      "https://ml-services-genomics.onrender.com/analyze/clustering",
+    "https://ml-services-genomics.onrender.com/analyze/clustering",
+    //  "http://127.0.0.1:8000/analyze/clustering",
       {
         method: "POST",
         headers: {
@@ -201,6 +207,32 @@ export const runClustering = async (req, res) => {
 
   } catch (error) {
     console.error("Clustering error:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const runConfusion = async (req, res) => {
+  try {
+    const { projectId } = req.body;
+
+    const project = await Project.findById(projectId);
+
+    const response = await fetch("https://ml-services-genomics.onrender.com/analyze/confusion", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        file_url: project.fileUrl
+      })
+    });
+    console.log("printing the file name for Confusion : ",project.fileUrl);
+
+    const data = await response.json();
+
+    res.json(data);
+
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
